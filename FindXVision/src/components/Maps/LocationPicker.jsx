@@ -248,7 +248,7 @@ const LocationPicker = ({
 
           <Box sx={{ height: 400 }}>
             <LoadScript
-              googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDyyWpDaW8kF0RAfJi_cAr0Q_4dUGTjIzY'}
+              googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'not_found'}
               libraries={['places']}
             >
               <GoogleMap

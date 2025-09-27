@@ -170,7 +170,7 @@ const MapComponent = ({
   };
 
   // Check if Google Maps API key is available
-  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDyyWpDaW8kF0RAfJi_cAr0Q_4dUGTjIzY';
+  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'not_found';
   
   // If no API key, show static placeholder
   if (!googleMapsApiKey) {
