@@ -30,24 +30,24 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--fx-background)] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-[var(--fx-surface)]/90 rounded-3xl border border-white/10 shadow-[0_28px_72px_rgba(0,0,0,0.6)] px-8 py-10">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-[var(--fx-text-primary)] tracking-[0.2em] uppercase">
             Sign in to your account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">
+            <div className="rounded-md bg-red-500/10 border border-red-500/40 p-4">
+              <div className="text-sm text-red-300">
                 {error}
               </div>
             </div>
           )}
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div className="relative">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -59,11 +59,11 @@ const LoginComponent = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-t-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Email address"
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -75,9 +75,16 @@ const LoginComponent = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-b-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Password"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/60 hover:text-white"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
             </div>
           </div>
 
@@ -87,15 +94,15 @@ const LoginComponent = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-white/30 rounded bg-transparent"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-[var(--fx-text-secondary)]">
                 Remember me
               </label>
             </div>
 
             <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-orange-600 hover:text-orange-500">
+              <Link to="/forgot-password" className="font-medium text-[var(--fx-accent)] hover:text-[#ffab33]">
                 Forgot your password?
               </Link>
             </div>
@@ -106,7 +113,7 @@ const LoginComponent = () => {
               type="submit"
               disabled={loading}
               fullWidth
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              className="group relative w-full flex justify-center py-3 px-4 border border-[var(--fx-accent)]/60 text-sm font-semibold rounded-full text-[#121212] bg-[#212121] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:ring-offset-2 focus:ring-offset-[#1c1c1c]"
             >
               {loading ? (
                 <>
@@ -123,8 +130,8 @@ const LoginComponent = () => {
           </div>
         </form>
         <div className="text-sm text-center">
-          <span className="text-gray-600">Don't have an account? </span>
-          <Link to="/register" className="font-medium text-orange-600 hover:text-orange-500">
+          <span className="text-[var(--fx-text-secondary)]">Don't have an account? </span>
+          <Link to="/register" className="font-medium text-[var(--fx-accent)] hover:text-[#ffab33]">
             Sign up
           </Link>
         </div>

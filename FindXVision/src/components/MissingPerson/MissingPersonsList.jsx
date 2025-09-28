@@ -201,15 +201,33 @@ const MissingPersonsList = () => {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" p={4}>
+      <Box display="flex" justifyContent="center" p={4} sx={{ color: 'var(--fx-text-primary)' }}>
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+    <Box
+      sx={{
+        p: { xs: 3, md: 4 },
+        backgroundColor: 'var(--fx-surface)',
+        borderRadius: 4,
+        border: '1px solid rgba(255, 152, 0, 0.18)',
+        boxShadow: '0 32px 96px rgba(0, 0, 0, 0.38)',
+        color: 'var(--fx-text-primary)',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', md: 'center' },
+          mb: 3,
+          gap: 2,
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Typography variant="h4">Missing Persons</Typography>
         <PrimaryButton
           variant="outlined"
@@ -239,7 +257,25 @@ const MissingPersonsList = () => {
             </InputAdornment>
           ),
         }}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            borderRadius: 3,
+            '& fieldset': {
+              borderColor: 'rgba(255, 255, 255, 0.18)',
+            },
+            '&:hover fieldset': {
+              borderColor: 'var(--fx-accent)',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'var(--fx-accent)',
+            },
+            '& input': {
+              color: 'var(--fx-text-primary)',
+            },
+          },
+        }}
       />
 
       <Box
@@ -264,7 +300,18 @@ const MissingPersonsList = () => {
           const latestSighting = sightingsSorted[0];
 
           return (
-            <Card key={person._id || person.adhaarNumber}>
+            <Card
+              key={person._id || person.adhaarNumber}
+              sx={{
+                height: '100%',
+                backgroundColor: 'rgba(27, 27, 27, 0.95)',
+                borderRadius: 3,
+                border: '1px solid rgba(255, 152, 0, 0.18)',
+                boxShadow: '0 24px 64px rgba(0, 0, 0, 0.38)',
+                overflow: 'hidden',
+                color: 'var(--fx-text-primary)',
+              }}
+            >
             <CardMedia
               component="div"
               sx={{
@@ -272,7 +319,7 @@ const MissingPersonsList = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                bgcolor: 'grey.200',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
               }}
             >
               {getImageSrc(person) ? (
@@ -282,14 +329,14 @@ const MissingPersonsList = () => {
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <PersonIcon sx={{ fontSize: 80, color: 'grey.400' }} />
+                <PersonIcon sx={{ fontSize: 80, color: 'rgba(255, 255, 255, 0.35)' }} />
               )}
             </CardMedia>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 {person.name}
               </Typography>
-              <Typography color="text.secondary" gutterBottom>
+              <Typography sx={{ color: 'var(--fx-text-secondary)' }} gutterBottom>
                 {person.age ? `Age: ${person.age}` : 'Age unknown'} | {person.gender || 'Unspecified'}
               </Typography>
               <Typography variant="body2" gutterBottom>
@@ -370,24 +417,24 @@ const MissingPersonsList = () => {
                       {new Date(latestSighting.createdAt).toLocaleString()}
                     </Typography>
                     {latestSighting.location?.address && (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                         {latestSighting.location.address}
                       </Typography>
                     )}
                     {latestSighting.notes && (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                         Notes: {latestSighting.notes}
                       </Typography>
                     )}
                     {latestSighting.reportedBy && (
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" sx={{ color: 'var(--fx-text-secondary)' }}>
                         Reported by {latestSighting.reportedBy.firstName || 'User'}{' '}
                         {latestSighting.reportedBy.lastName || ''}
                       </Typography>
                     )}
                   </Stack>
                   {sightingsCount > 1 && (
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" sx={{ color: 'var(--fx-text-secondary)' }}>
                       +{sightingsCount - 1} more sighting{(sightingsCount - 1) === 1 ? '' : 's'} reported.
                     </Typography>
                   )}

@@ -31,23 +31,23 @@ const SignupComponent = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--fx-background)] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-[var(--fx-surface)]/90 rounded-3xl border border-white/10 shadow-[0_28px_72px_rgba(0,0,0,0.6)] px-8 py-10">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-[var(--fx-text-primary)] tracking-[0.2em] uppercase">
             Create your account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">
+            <div className="rounded-md bg-red-500/10 border border-red-500/40 p-4">
+              <div className="text-sm text-red-300">
                 {error}
               </div>
             </div>
           )}
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
+          <div className="rounded-2xl space-y-4">
+            <div className="relative">
               <label htmlFor="name" className="sr-only">
                 Full Name
               </label>
@@ -58,11 +58,11 @@ const SignupComponent = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Full Name"
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -74,11 +74,11 @@ const SignupComponent = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Email address"
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -89,11 +89,11 @@ const SignupComponent = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Password"
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="confirm-password" className="sr-only">
                 Confirm Password
               </label>
@@ -104,47 +104,43 @@ const SignupComponent = () => {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Confirm Password"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-[var(--fx-text-secondary)] uppercase tracking-[0.2em] mb-2">
                 User Type
               </label>
               <div className="flex space-x-4">
-                <label className="inline-flex items-center">
+                <label className="inline-flex items-center text-[var(--fx-text-secondary)]">
                   <input
                     type="radio"
-                    className="form-radio h-4 w-4 text-orange-600"
+                    className="form-radio h-4 w-4 text-orange-500 focus:ring-orange-500 border-white/40"
                     name="userType"
                     value="user"
                     checked={userType === 'user'}
                     onChange={(e) => setUserType(e.target.value)}
                   />
-                  <span className="ml-2 text-gray-700">User</span>
+                  <span className="ml-2">User</span>
                 </label>
-                <label className="inline-flex items-center">
+                <label className="inline-flex items-center text-[var(--fx-text-secondary)]">
                   <input
                     type="radio"
-                    className="form-radio h-4 w-4 text-orange-600"
+                    className="form-radio h-4 w-4 text-orange-500 focus:ring-orange-500 border-white/40"
                     name="userType"
                     value="admin"
                     checked={userType === 'admin'}
                     onChange={(e) => setUserType(e.target.value)}
                   />
-                  <span className="ml-2 text-gray-700">Admin</span>
+                  <span className="ml-2">Admin</span>
                 </label>
               </div>
             </div>
           </div>
 
           <div>
-            <TailwindPrimaryButton
-              type="submit"
-              disabled={loading}
-              fullWidth
-            >
+            <TailwindPrimaryButton type="submit" disabled={loading} fullWidth>
               {loading ? (
                 <>
                   <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -160,8 +156,8 @@ const SignupComponent = () => {
           </div>
         </form>
         <div className="text-sm text-center">
-          <span className="text-gray-600">Already have an account? </span>
-          <Link to="/login" className="font-medium text-orange-600 hover:text-orange-500">
+          <span className="text-[var(--fx-text-secondary)]">Already have an account? </span>
+          <Link to="/login" className="font-medium text-[#212121] hover:bg-white/10 ">
             Sign in
           </Link>
         </div>

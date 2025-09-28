@@ -30,26 +30,32 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--fx-background)] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-[var(--fx-surface)]/90 rounded-3xl border border-white/10 shadow-[0_28px_72px_rgba(0,0,0,0.6)] px-8 py-10">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-[var(--fx-text-primary)] tracking-[0.2em] uppercase">
             Set new password
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-4 text-center text-sm text-[var(--fx-text-secondary)]">
             Please enter your new password below.
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {message && (
-            <div className={`rounded-md p-4 ${message.includes('success') ? 'bg-green-50' : 'bg-red-50'}`}>
-              <div className={`text-sm ${message.includes('success') ? 'text-green-700' : 'text-red-700'}`}>
+            <div
+              className={`rounded-md p-4 border ${
+                message.includes('success')
+                  ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-200'
+                  : 'bg-red-500/10 border-red-500/40 text-red-200'
+              }`}
+            >
+              <div className="text-sm">
                 {message}
               </div>
             </div>
           )}
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
+          <div className="rounded-2xl space-y-4">
+            <div className="relative">
               <label htmlFor="password" className="sr-only">
                 New Password
               </label>
@@ -60,11 +66,11 @@ const ResetPasswordPage = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="New Password"
               />
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="confirm-password" className="sr-only">
                 Confirm New Password
               </label>
@@ -75,7 +81,7 @@ const ResetPasswordPage = () => {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-white/15 bg-white/5 backdrop-blur placeholder-white/50 text-[var(--fx-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fx-accent)] focus:border-[var(--fx-accent)] focus:z-10 sm:text-sm transition"
                 placeholder="Confirm New Password"
               />
             </div>
@@ -102,7 +108,7 @@ const ResetPasswordPage = () => {
           </div>
         </form>
         <div className="text-sm text-center">
-          <Link to="/login" className="font-medium text-orange-600 hover:text-orange-500">
+          <Link to="/login" className="font-medium text-[var(--fx-accent)] hover:text-[#ffab33]">
             Back to sign in
           </Link>
         </div>

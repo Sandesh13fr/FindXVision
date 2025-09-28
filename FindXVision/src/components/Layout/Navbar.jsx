@@ -71,12 +71,27 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" elevation={2} sx={{ backgroundColor: 'white', borderBottom: '2px solid #2E7D32' }}>
+    <AppBar
+      position="static"
+      elevation={4}
+      sx={{
+        backgroundColor: 'rgba(24, 24, 24, 0.92)',
+        borderBottom: '1px solid rgba(255, 152, 0, 0.25)',
+        backdropFilter: 'blur(12px)',
+      }}
+    >
       <Toolbar>
         <Typography
           variant="h6"
           component="div"
-          sx={{ flexGrow: 1, cursor: 'pointer', color: '#2E7D32', fontWeight: 700 }}
+          sx={{
+            flexGrow: 1,
+            cursor: 'pointer',
+            color: 'var(--fx-accent)',
+            fontWeight: 700,
+            letterSpacing: 2,
+            textTransform: 'uppercase',
+          }}
           onClick={() => navigate('/')}
         >
           FindXVision
@@ -91,12 +106,15 @@ const Navbar = () => {
               onClick={() => navigate(item.path)}
               sx={{
                 mx: 1,
-                color: isActive(item.path) ? '#ffffff' : '#212121',
-                backgroundColor: isActive(item.path) ? '#2E7D32' : 'transparent',
+                color: isActive(item.path) ? '#121212' : 'var(--fx-text-primary)',
+                backgroundColor: isActive(item.path) ? 'var(--fx-accent)' : 'transparent',
+                borderColor: isActive(item.path) ? 'var(--fx-accent)' : 'rgba(255, 152, 0, 0.25)',
                 '&:hover': {
-                  backgroundColor: isActive(item.path) ? '#1B5E20' : 'rgba(46, 125, 50, 0.1)',
-                  color: isActive(item.path) ? '#ffffff' : '#2E7D32'
-                }
+                  backgroundColor: isActive(item.path)
+                    ? '#ffab33'
+                    : 'rgba(255, 152, 0, 0.12)',
+                  color: '#121212',
+                },
               }}
             >
               {item.label}
@@ -107,11 +125,12 @@ const Navbar = () => {
               onClick={handleAccountMenuOpen}
               sx={{
                 ml: 1,
-                color: '#212121',
+                color: 'var(--fx-text-primary)',
+                borderColor: 'rgba(255, 152, 0, 0.25)',
                 '&:hover': {
-                  backgroundColor: 'rgba(46, 125, 50, 0.1)',
-                  color: '#2E7D32'
-                }
+                  backgroundColor: 'rgba(255, 152, 0, 0.12)',
+                  color: '#121212',
+                },
               }}
             >
               {user?.firstName ? `Hi, ${user.firstName}` : 'Account'}
@@ -120,7 +139,15 @@ const Navbar = () => {
             <PrimaryButton
               startIcon={<Login />}
               onClick={() => navigate('/login')}
-              sx={{ ml: 1, color: '#212121' }}
+              sx={{
+                ml: 1,
+                color: 'var(--fx-text-primary)',
+                borderColor: 'rgba(255, 152, 0, 0.25)',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 152, 0, 0.12)',
+                  color: '#121212',
+                },
+              }}
             >
               Sign In
             </PrimaryButton>

@@ -18,8 +18,8 @@ const StyledButton = styled(Button)`
     text-transform: uppercase;
     letter-spacing: 0.35rem;
     background: radial-gradient(circle, var(--fx-main-bg-color) 0%, rgba(0, 0, 0, 0) 95%),
-      linear-gradient(var(--fx-pattern-color) 1px, transparent 1px),
-      linear-gradient(to right, var(--fx-pattern-color) 1px, transparent 1px);
+    linear-gradient(var(--fx-pattern-color) 1px, transparent 1px),
+    linear-gradient(to right, var(--fx-pattern-color) 1px, transparent 1px);
     background-size: cover, 15px 15px, 15px 15px;
     background-position: center center;
     border-image: radial-gradient(circle, var(--fx-main-color) 0%, rgba(0, 0, 0, 0) 100%) 1;
@@ -51,14 +51,11 @@ const StyledButton = styled(Button)`
     transition: background-size 0.2s ease-in-out, filter 0.2s ease-in-out, transform 0.2s ease-in-out,
       opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    border-radius: 999px;
-    background-color: rgba(0, 0, 0, 0.25);
-    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.25);
 
     &:hover {
       background-size: cover, 10px 10px, 10px 10px;
-      transform: translateY(-2px);
-      box-shadow: 0 22px 38px rgba(0, 0, 0, 0.4);
     }
 
     &:active {
@@ -71,7 +68,6 @@ const StyledButton = styled(Button)`
       cursor: not-allowed;
       filter: grayscale(0.4);
       transform: none;
-      box-shadow: none;
     }
 
     &.MuiButton-outlined {

@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+:root {
+	color-scheme: dark;
+	--fx-background: #212121;
+	--fx-surface: #1a1a1a;
+	--fx-text-primary: #f5f5f5;
+	--fx-text-secondary: rgba(255, 255, 255, 0.72);
+	--fx-accent: #ff9800;
+}
+
+html,
+body,
+#root {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--fx-background);
+	color: var(--fx-text-primary);
+	font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color: var(--fx-accent);
+	text-decoration-color: rgba(255, 152, 0, 0.4);
+}
+
+button,
+[role='button'] {
+	color: var(--fx-accent);
+}
+
+::selection {
+	background: rgba(255, 152, 0, 0.35);
+	color: var(--fx-text-primary);
+}
+
+.fx-surface {
+	background-color: var(--fx-surface);
+	color: var(--fx-text-primary);
+}
+
+.fx-surface-muted {
+	background-color: rgba(255, 152, 0, 0.08);
+	color: var(--fx-text-primary);
+}
+
+.fx-text-secondary {
+	color: var(--fx-text-secondary);
+}
+
+.fx-accent {
+	color: var(--fx-accent);
+}

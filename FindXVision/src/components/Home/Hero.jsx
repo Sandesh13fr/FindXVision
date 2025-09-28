@@ -25,11 +25,12 @@ const Hero = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
+          background: 'linear-gradient(135deg, rgba(33, 33, 33, 0.96) 0%, rgba(26, 26, 26, 0.98) 100%)',
+          color: 'var(--fx-text-primary)',
           py: { xs: 8, md: 12 },
           position: 'relative',
           overflow: 'hidden',
+          borderBottom: '1px solid rgba(255, 152, 0, 0.18)',
         }}
       >
         <Container maxWidth="lg">
@@ -50,6 +51,7 @@ const Hero = () => {
                   fontSize: { xs: '2.5rem', md: '3.5rem' },
                   fontWeight: 'bold',
                   lineHeight: 1.2,
+                  color: 'var(--fx-text-primary)',
                 }}
               >
                 Find Missing People
@@ -59,9 +61,10 @@ const Hero = () => {
                 component="p"
                 sx={{
                   mb: 4,
-                  opacity: 0.9,
+                  opacity: 0.85,
                   fontSize: { xs: '1.1rem', md: '1.3rem' },
                   lineHeight: 1.6,
+                  color: 'var(--fx-text-secondary)',
                 }}
               >
                 A comprehensive platform to help locate missing persons through
@@ -98,9 +101,9 @@ const Hero = () => {
                   mx: 'auto',
                   borderRadius: 4,
                   overflow: 'hidden',
-                  boxShadow: '0 24px 48px rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  boxShadow: '0 24px 48px rgba(0, 0, 0, 0.4)',
+                  border: '1px solid rgba(255, 152, 0, 0.25)',
+                  backgroundColor: 'rgba(33, 33, 33, 0.85)',
                 }}
               >
                 <Box
@@ -171,7 +174,13 @@ const Hero = () => {
           component="h2"
           textAlign="center"
           gutterBottom
-          sx={{ mb: 6, fontWeight: 'bold', color: '#333' }}
+          sx={{
+            mb: 6,
+            fontWeight: 'bold',
+            color: 'var(--fx-accent)',
+            textTransform: 'uppercase',
+            letterSpacing: 2,
+          }}
         >
           Quick Actions
         </Typography>
@@ -189,17 +198,20 @@ const Hero = () => {
               transition: 'transform 0.2s, box-shadow 0.2s',
               '&:hover': {
                 transform: 'translateY(-4px)',
-                boxShadow: 8,
+                boxShadow: '0 16px 32px rgba(255, 152, 0, 0.18)',
               },
               cursor: 'pointer',
+              backgroundColor: 'var(--fx-surface)',
+              border: '1px solid rgba(255, 152, 0, 0.18)',
+              color: 'var(--fx-text-primary)',
             }}
             onClick={handleReportMissing}
           >
             <CardContent sx={{ p: 4 }}>
               <IconButton
                 sx={{
-                  backgroundColor: '#f3e5f5',
-                  color: '#7b1fa2',
+                  backgroundColor: 'rgba(255, 152, 0, 0.15)',
+                  color: 'var(--fx-accent)',
                   mb: 2,
                   width: 64,
                   height: 64,
@@ -210,7 +222,7 @@ const Hero = () => {
               <Typography variant="h6" component="h3" gutterBottom>
                 Report Missing Person
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                 Submit detailed information about a missing person to help our
                 community assist in the search.
               </Typography>
@@ -224,17 +236,20 @@ const Hero = () => {
               transition: 'transform 0.2s, box-shadow 0.2s',
               '&:hover': {
                 transform: 'translateY(-4px)',
-                boxShadow: 8,
+                boxShadow: '0 16px 32px rgba(255, 152, 0, 0.18)',
               },
               cursor: 'pointer',
+              backgroundColor: 'var(--fx-surface)',
+              border: '1px solid rgba(255, 152, 0, 0.18)',
+              color: 'var(--fx-text-primary)',
             }}
             onClick={handleSearchMissing}
           >
             <CardContent sx={{ p: 4 }}>
               <IconButton
                 sx={{
-                  backgroundColor: '#e3f2fd',
-                  color: '#1976d2',
+                  backgroundColor: 'rgba(255, 152, 0, 0.15)',
+                  color: 'var(--fx-accent)',
                   mb: 2,
                   width: 64,
                   height: 64,
@@ -245,7 +260,7 @@ const Hero = () => {
               <Typography variant="h6" component="h3" gutterBottom>
                 Search Database
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                 Browse through our comprehensive database of missing persons
                 using advanced search filters.
               </Typography>
@@ -256,14 +271,14 @@ const Hero = () => {
       </Container>
 
       {/* Contact Information */}
-      <Box sx={{ bgcolor: '#f5f5f5', py: 6 }}>
+      <Box sx={{ bgcolor: 'rgba(255, 152, 0, 0.08)', py: 6 }}>
         <Container maxWidth="lg">
           <Typography
             variant="h5"
             component="h2"
             textAlign="center"
             gutterBottom
-            sx={{ fontWeight: 'bold', mb: 4 }}
+            sx={{ fontWeight: 'bold', mb: 4, color: 'var(--fx-text-primary)' }}
           >
             Need Help? Contact Our Support Team
           </Typography>
@@ -276,14 +291,16 @@ const Hero = () => {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <PhoneIcon sx={{ color: '#1976d2' }} />
-              <Typography variant="body1">
+              <PhoneIcon sx={{ color: 'var(--fx-accent)' }} />
+              <Typography variant="body1" sx={{ color: 'var(--fx-text-primary)' }}>
                 Emergency: 911 | Support: (555) 123-4567
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <EmailIcon sx={{ color: '#1976d2' }} />
-              <Typography variant="body1">support@findxvision.com</Typography>
+              <EmailIcon sx={{ color: 'var(--fx-accent)' }} />
+              <Typography variant="body1" sx={{ color: 'var(--fx-text-primary)' }}>
+                support@findxvision.com
+              </Typography>
             </Box>
           </Box>
         </Container>

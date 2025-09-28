@@ -11,12 +11,18 @@ const TailwindPrimaryButton = ({
   ...rest
 }) => {
   const colorClasses = {
-    primary: 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-500',
-    secondary: 'bg-red-500 hover:bg-red-600 focus:ring-red-500',
-    success: 'bg-green-500 hover:bg-green-600 focus:ring-green-500',
-    error: 'bg-red-500 hover:bg-red-600 focus:ring-red-500',
-    warning: 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-500',
-    info: 'bg-blue-500 hover:bg-blue-600 focus:ring-blue-500',
+    primary:
+      'bg-[#212121] text-[#121212] hover:bg-white/10  focus:ring-[var(--fx-accent)]/60 border border-[var(--fx-accent)]/60 rounded-xl',
+    secondary:
+      'bg-[#ff7043] text-[#121212] hover:bg-[#ff8a65] focus:ring-[#ff7043]/60 border border-[#ff7043]/60',
+    success:
+      'bg-[#4caf50] text-white hover:bg-[#66bb6a] focus:ring-[#4caf50]/60 border border-[#4caf50]/60',
+    error:
+      'bg-[#f44336] text-white hover:bg-[#ef5350] focus:ring-[#f44336]/60 border border-[#f44336]/60',
+    warning:
+      'bg-[#ff9800] text-[#121212] hover:bg-[#ffab33] focus:ring-[#ff9800]/60 border border-[#ff9800]/60',
+    info:
+      'bg-[#03a9f4] text-[#050505] hover:bg-[#29b6f6] focus:ring-[#03a9f4]/60 border border-[#03a9f4]/60',
   };
 
   const sizeClasses = {
@@ -25,15 +31,15 @@ const TailwindPrimaryButton = ({
     large: 'py-3 px-6 text-lg',
   };
 
-  const baseClasses = `inline-flex items-center justify-center rounded-full font-bold uppercase tracking-widest transition-all duration-200 ${
+  const baseClasses = `inline-flex items-center justify-center font-bold uppercase tracking-[0.35em] transition-all duration-200 ${
     colorClasses[color]
   } ${
     sizeClasses[size]
   } ${
     fullWidth ? 'w-full' : ''
   } ${
-    disabled || loading ? 'opacity-50 cursor-not-allowed' : ''
-  } text-white shadow-lg transform hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0`;
+    disabled || loading ? 'opacity-60 cursor-not-allowed' : ''
+  } transform hover:-translate-y-0.5 active:translate-y-0`;
 
   return (
     <button
