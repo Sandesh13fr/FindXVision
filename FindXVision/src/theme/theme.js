@@ -1,7 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
+const fontFamily = "'Helvetica','SUSEMono','Bitcount', 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
+
 const baseTypography = {
-  fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily,
   h1: {
     fontSize: '2.5rem',
     fontWeight: 600,

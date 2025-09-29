@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+@font-face {
+	font-family: "Bitcount";
+	src: url("/FONT/BitcountGridDoubleInk.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+@font-face {
+	font-family: "SUSEMono";
+	src: url("/FONT/SUSE/SUSE_Mono/SUSEMono-VariableFont.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Helvetica";
+	src: url("/FONT/Helvetica/Helvetica.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
 :root {
 	color-scheme: dark;
 	--fx-background: rgba(33, 33, 33, 0.95);
@@ -24,9 +46,17 @@ body {
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	color: var(--fx-text-primary);
-	font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+	font-family: 'Bitcount', 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+	font-family: 'Bitcount', 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Background overlay for better text readability */
@@ -89,6 +119,17 @@ button,
 	border: 1px solid rgba(255, 152, 0, 0.3);
 	box-shadow: 0 12px 40px rgba(255, 152, 0, 0.15);
 	transform: translateY(-4px);
+}
+
+.fx-glass-card.fx-glass-card--static {
+	transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.fx-glass-card.fx-glass-card--static:hover {
+	background: rgba(26, 26, 26, 0.6);
+	border-color: rgba(255, 255, 255, 0.15);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+	transform: none;
 }
 
 /* Reusable glass-morphism surfaces */

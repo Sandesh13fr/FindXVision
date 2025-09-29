@@ -1,5 +1,5 @@
  import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import  { Alert, Box, Card, CardActions, CardContent, CardMedia, Chip, CircularProgress, Container, Divider, Stack, Tab, Tabs, Typography }  from '@mui/material';
+import  { Alert, Box, Card, CardActions, CardContent, CardMedia, Chip, CircularProgress, Container, Divider, InputAdornment, Stack, Tab, Tabs, TextField, Tooltip, Typography }  from '@mui/material';
 import {
   CheckCircleOutline,
   DoneAll,
@@ -7,6 +7,7 @@ import {
   Place,
   Refresh,
   Schedule,
+  Search,
 } from '@mui/icons-material';
 import { adminAPI } from '../../services/api';
 
@@ -23,6 +24,7 @@ const MissingPersonsAdmin = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const heroStyles = {
     background: 'rgba(20, 20, 20, 0.55)',
@@ -46,13 +48,16 @@ const MissingPersonsAdmin = () => {
   };
 
   const tabStyles = {
-    mt: 4,
     '& .MuiTab-root': {
       color: 'var(--fx-text-secondary)',
       textTransform: 'uppercase',
       letterSpacing: '0.2em',
-      minHeight: 56,
+      minHeight: 52,
       fontWeight: 600,
+      minWidth: 0,
+    },
+    '& .MuiTabs-flexContainer': {
+      gap: { xs: 0.5, md: 1 },
     },
     '& .Mui-selected': {
       color: 'var(--fx-accent) !important',
@@ -146,80 +151,94 @@ const MissingPersonsAdmin = () => {
     [activeTab],
   );
 
-  const emptyStateCopy =
-    activeTab === 'pending'
-      ? 'No pending reports awaiting approval right now.'
-      : 'No approved reports to display.';
-
-  const summaryMetrics = useMemo(() => {
-    if (!reports.length) {
-      return [
-        { label: 'Entries in view', value: '0' },
-        { label: 'Reports with photo evidence', value: '0' },
-        { label: 'Last update processed', value: '—' },
-      ];
+  const emptyStateCopy = useMemo(() => {
+    if (searchTerm.trim()) {
+      return 'No reports match your search or filters.';
     }
 
-    const withPhotos = reports.filter((report) => Boolean(report?.image?.data?.data?.length)).length;
-    const latestTimestamp = reports.reduce((latest, report) => {
+    return activeTab === 'pending'
+      ? 'No pending reports awaiting approval right now.'
+      : 'No approved reports to display.';
+  }, [activeTab, searchTerm]);
+
+  const visibleReports = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return reports;
+    }
+
+    const normalized = searchTerm.trim().toLowerCase();
+    return reports.filter((report) => {
+      const fields = [
+        report?.name,
+        report?.adhaarNumber,
+        report?.lastSeenLocation?.address,
+        report?.address,
+      ];
+
+      return fields.some(
+        (field) => typeof field === 'string' && field.toLowerCase().includes(normalized),
+      );
+    });
+  }, [reports, searchTerm]);
+
+  const stats = useMemo(() => {
+    const withPhotos = visibleReports.filter((report) => Boolean(report?.image?.data?.data?.length)).length;
+    const sourceForLatest = visibleReports.length ? visibleReports : reports;
+    const latestTimestamp = sourceForLatest.reduce((latest, report) => {
       const timestamp = report?.updatedAt || report?.createdAt;
       if (!timestamp) return latest;
       if (!latest) return timestamp;
       return new Date(timestamp) > new Date(latest) ? timestamp : latest;
     }, null);
 
-    return [
-      { label: 'Entries in view', value: reports.length.toString() },
-      { label: 'Reports with photo evidence', value: withPhotos.toString() },
+    return {
+      total: reports.length,
+      visible: visibleReports.length,
+      withPhotos,
+      latest: latestTimestamp,
+    };
+  }, [reports, visibleReports]);
+
+  const summaryMetrics = useMemo(
+    () => [
+      { label: 'Entries showing', value: `${stats.visible} / ${stats.total}` },
+      { label: 'Reports with photo evidence', value: stats.withPhotos.toString() },
       {
         label: 'Last update processed',
-        value: latestTimestamp ? new Date(latestTimestamp).toLocaleString() : '—',
+        value: stats.latest ? new Date(stats.latest).toLocaleString() : '—',
       },
-    ];
-  }, [reports]);
+    ],
+    [stats],
+  );
+
+  const lastUpdatedLabel = stats.latest ? new Date(stats.latest).toLocaleString() : '—';
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 5, md: 7 }, px: { xs: 2.5, md: 4 } }}>
       <Stack spacing={4}>
         <Box className="fx-glass-panel" sx={heroStyles}>
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            spacing={4}
-            justifyContent="space-between"
-            alignItems={{ xs: 'flex-start', md: 'center' }}
-          >
-            <Box>
-              <Chip
-                label="Admin command center"
-                color="warning"
-                variant="outlined"
-                sx={{
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.28em',
-                  borderColor: 'rgba(255, 152, 0, 0.35)',
-                  color: 'var(--fx-accent)',
-                  backgroundColor: 'rgba(255, 152, 0, 0.12)',
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              />
-              <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
-                Missing Person Reports
-              </Typography>
-              <Typography variant="body1" sx={{ color: 'var(--fx-text-secondary)', maxWidth: 580 }}>
-                Govern submissions, fast-track approvals, and coordinate takedowns with a single operational picture.
-              </Typography>
-            </Box>
-            <PrimaryButton
-              variant="contained"
-              startIcon={<Refresh />}
-              onClick={fetchReports}
-              loading={loading}
-              size="large"
-            >
-              Refresh data
-            </PrimaryButton>
-          </Stack>
+          <Box>
+            <Chip
+              label="Admin command center"
+              color="warning"
+              variant="outlined"
+              sx={{
+                textTransform: 'uppercase',
+                letterSpacing: '0.28em',
+                borderColor: 'rgba(255, 152, 0, 0.35)',
+                color: 'var(--fx-accent)',
+                backgroundColor: 'rgba(255, 152, 0, 0.12)',
+                fontWeight: 600,
+                mb: 2,
+              }}
+            />
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+              Missing Person Reports
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'var(--fx-text-secondary)', maxWidth: 620 }}>
+              Govern submissions, fast-track approvals, and coordinate takedowns with a single operational picture.
+            </Typography>
+          </Box>
 
           <Stack
             direction={{ xs: 'column', md: 'row' }}
@@ -246,19 +265,145 @@ const MissingPersonsAdmin = () => {
               </Box>
             ))}
           </Stack>
-
-          <Tabs
-            value={activeTab}
-            onChange={(_, value) => setActiveTab(value)}
-            TabIndicatorProps={{ style: { backgroundColor: 'var(--fx-accent)', height: 3, borderRadius: 12 } }}
-            sx={tabStyles}
-            variant="scrollable"
-            allowScrollButtonsMobile
+          <Box
+            sx={{
+              mt: { xs: 4, md: 5 },
+              borderRadius: 3,
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              backgroundColor: 'rgba(12, 12, 12, 0.55)',
+              px: { xs: 2.5, md: 3.5 },
+              py: { xs: 2.5, md: 3 },
+            }}
           >
-            {TABS.map((tab) => (
-              <Tab key={tab.value} value={tab.value} label={tab.label} />
-            ))}
-          </Tabs>
+            <Stack spacing={{ xs: 3, md: 3.5 }}>
+              <Stack
+                direction={{ xs: 'column', xl: 'row' }}
+                spacing={{ xs: 2.5, md: 3 }}
+                alignItems={{ xl: 'center' }}
+                justifyContent="space-between"
+              >
+                <Tabs
+                  value={activeTab}
+                  onChange={(_, value) => setActiveTab(value)}
+                  TabIndicatorProps={{ style: { backgroundColor: 'var(--fx-accent)', height: 3, borderRadius: 12 } }}
+                  sx={{ ...tabStyles, flexShrink: 0 }}
+                  variant="scrollable"
+                  allowScrollButtonsMobile
+                >
+                  {TABS.map((tab) => (
+                    <Tab key={tab.value} value={tab.value} label={tab.label} />
+                  ))}
+                </Tabs>
+
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: { xs: '100%', xl: 'auto' } }}>
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    placeholder="Search by name, ID or location"
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Search sx={{ fontSize: 20, color: 'var(--fx-text-secondary)' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      minWidth: { xs: '100%', sm: 280 },
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                        color: 'var(--fx-text-primary)',
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(255, 255, 255, 0.12)',
+                      },
+                      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(255, 152, 0, 0.6)',
+                      },
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'var(--fx-accent)',
+                      },
+                    }}
+                  />
+
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                    <PrimaryButton
+                      variant="contained"
+                      startIcon={<Refresh />}
+                      onClick={fetchReports}
+                      loading={loading}
+                    >
+                      Refresh data
+                    </PrimaryButton>
+                    <PrimaryButton
+                      variant="outlined"
+                      onClick={() => setSearchTerm('')}
+                      disabled={!searchTerm.trim()}
+                    >
+                      Clear search
+                    </PrimaryButton>
+                  </Stack>
+                </Stack>
+              </Stack>
+
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} flexWrap="wrap">
+                <Tooltip title="Entries currently visible after filters" placement="top" arrow>
+                  <Chip
+                    icon={<CheckCircleOutline fontSize="small" />}
+                    label={`${stats.visible} showing`}
+                    sx={{
+                      borderRadius: 2,
+                      backgroundColor: 'rgba(255, 152, 0, 0.12)',
+                      border: '1px solid rgba(255, 152, 0, 0.3)',
+                      color: 'var(--fx-accent)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.18em',
+                    }}
+                  />
+                </Tooltip>
+                <Tooltip title="Reports that include photo evidence" placement="top" arrow>
+                  <Chip
+                    icon={<DoneAll fontSize="small" />}
+                    label={`${stats.withPhotos} with photos`}
+                    sx={{
+                      borderRadius: 2,
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      color: 'var(--fx-text-secondary)',
+                      letterSpacing: '0.12em',
+                    }}
+                  />
+                </Tooltip>
+                <Tooltip title="Most recent report update" placement="top" arrow>
+                  <Chip
+                    icon={<Schedule fontSize="small" />}
+                    label={`Last update ${lastUpdatedLabel}`}
+                    sx={{
+                      borderRadius: 2,
+                      backgroundColor: 'rgba(33, 33, 33, 0.6)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      color: 'var(--fx-text-secondary)',
+                      letterSpacing: '0.12em',
+                    }}
+                  />
+                </Tooltip>
+                {searchTerm.trim() && (
+                  <Chip
+                    label={`Filter: "${searchTerm.trim()}"`}
+                    onDelete={() => setSearchTerm('')}
+                    sx={{
+                      borderRadius: 2,
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid rgba(255, 255, 255, 0.18)',
+                      color: 'var(--fx-text-secondary)',
+                    }}
+                  />
+                )}
+              </Stack>
+            </Stack>
+          </Box>
   </Box>
 
       {alert && (
@@ -302,9 +447,31 @@ const MissingPersonsAdmin = () => {
           <PersonIcon sx={{ fontSize: 72, mb: 2, color: 'rgba(255, 255, 255, 0.35)' }} />
           <Typography variant="h6">{emptyStateCopy}</Typography>
         </Box>
+      ) : visibleReports.length === 0 ? (
+        <Box
+          className="fx-glass-card"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          minHeight={320}
+          textAlign="center"
+          sx={{
+            color: 'var(--fx-text-secondary)',
+            borderRadius: 3,
+            py: 7,
+            px: { xs: 3, md: 6 },
+          }}
+        >
+          <Search sx={{ fontSize: 72, mb: 2, color: 'rgba(255, 255, 255, 0.35)' }} />
+          <Typography variant="h6">No reports match "{searchTerm.trim()}".</Typography>
+          <Typography variant="body2" sx={{ mt: 1.5, maxWidth: 360 }}>
+            Try adjusting your search terms or clear the filter to see all {activeTabLabel.toLowerCase()}.
+          </Typography>
+        </Box>
       ) : (
-  <Stack spacing={4}>
-          {reports.map((person) => (
+        <Stack spacing={4}>
+          {visibleReports.map((person) => (
             <Card key={person._id} className="fx-glass-card" sx={surfaceStyles}>
               <Stack direction={{ xs: 'column', sm: 'row' }}>
                 <CardMedia
@@ -471,7 +638,7 @@ const MissingPersonsAdmin = () => {
             textTransform: 'uppercase',
           }}
         >
-          Viewing {reports.length} {activeTabLabel.toLowerCase()}.
+          Viewing {visibleReports.length} of {reports.length} {activeTabLabel.toLowerCase()}.
         </Typography>
       </Box>
     </Stack>

@@ -12,6 +12,7 @@ import ResetPasswordPage from './pages/Auth/ResetPasswordPage';
 import TailwindTestPage from './pages/Auth/TailwindTestPage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import MissingPersonsAdmin from './pages/Admin/MissingPersonsAdmin';
+import ProfilePage from './pages/Profile/ProfilePage';
 import { useDispatch } from 'react-redux';
 import { checkAuthStatus } from './store/slices/authSlice';
 
@@ -37,6 +38,14 @@ function App() {
           )}
         />
         <Route path="/missing-persons" element={<MissingPersonsList />} />
+        <Route
+          path="/profile"
+          element={(
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          )}
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />

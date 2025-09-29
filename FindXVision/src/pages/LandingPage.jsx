@@ -1,5 +1,17 @@
 import React from 'react';
-import { Search, Shield, MapPin, ClipboardCheck, FileText, BarChart3, CheckCircle, Star } from 'lucide-react';
+import {
+  Search,
+  Shield,
+  MapPin,
+  ClipboardCheck,
+  FileText,
+  BarChart3,
+  CheckCircle,
+  Star,
+  UserCheck,
+  BellRing,
+  ShieldAlert,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Hero from '../components/Home/Hero';
 
@@ -71,6 +83,27 @@ const LandingPage = () => {
     { traditional: 'Delayed stakeholder updates', modern: 'Instant alerts and performance dashboards' },
   ];
 
+  const profileHighlights = [
+    {
+      icon: <UserCheck className="w-6 h-6" />,
+      title: 'Trusted identity ledger',
+      description:
+        'Keep contact points and permissions synchronized so every alert reaches the right responders instantly.',
+    },
+    {
+      icon: <BellRing className="w-6 h-6" />,
+      title: 'Real-time notification control',
+      description:
+        'Tune SMS and email alerts to the teams and cases you follow, ensuring no critical update slips by.',
+    },
+    {
+      icon: <ShieldAlert className="w-6 h-6" />,
+      title: 'Security-first access',
+      description:
+        'Granular roles and audit trails mean your mission data stays protected while collaboration stays rapid.',
+    },
+  ];
+
   return (
     <div className="min-h-screen text-[var(--fx-text-primary)]">
       <Hero />
@@ -133,6 +166,53 @@ const LandingPage = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                 <p className="text-[var(--fx-text-secondary)] leading-relaxed">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="profile" className="py-20 px-6 fx-seamless-section">
+        <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
+          <div className="space-y-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-[var(--fx-accent)] font-semibold">
+              Profile Command Center
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold">
+              Your mission identity, orchestrated in one hub
+            </h2>
+            <p className="text-lg text-[var(--fx-text-secondary)] leading-relaxed">
+              The new profile workspace keeps your personal details, notification channels, and case roles in sync.
+              Switch between reporting, searching, and coordinating without losing context or visibility.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => navigate('/profile')}
+                className="px-8 py-4 border border-white/20 bg-[rgba(255,152,0,0.12)] text-[#121212] text-sm font-semibold uppercase tracking-[0.35em] hover:bg-[rgba(255,152,0,0.2)] transition-colors"
+              >
+                View my profile
+              </button>
+              <button
+                onClick={() => navigate('/register')}
+                className="px-8 py-4 border border-white/20 text-[var(--fx-text-primary)] text-sm font-semibold uppercase tracking-[0.35em] hover:bg-white/10 transition-colors"
+              >
+                Create account
+              </button>
+            </div>
+          </div>
+          <div className="grid gap-6">
+            {profileHighlights.map((highlight) => (
+              <div
+                key={highlight.title}
+                className="fx-glass-card rounded-3xl p-6 flex items-start gap-4 shadow-[0_20px_64px_rgba(0,0,0,0.35)]"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-[rgba(255,152,0,0.15)] text-[var(--fx-accent)] flex items-center justify-center">
+                  {highlight.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">{highlight.title}</h3>
+                  <p className="text-[var(--fx-text-secondary)] leading-relaxed">{highlight.description}</p>
+                </div>
               </div>
             ))}
           </div>

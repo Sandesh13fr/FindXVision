@@ -5,6 +5,7 @@ import {
   Add as AddIcon,
   Phone as PhoneIcon,
   Email as EmailIcon,
+  ManageAccounts as ManageAccountsIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import PrimaryButton from '../Common/PrimaryButton';
@@ -97,7 +98,7 @@ const Hero = () => {
                   position: 'relative',
                   width: '100%',
                   mx: 'auto',
-                  borderRadius: 4,
+                  borderRadius: 1,
                   overflow: 'hidden',
                   boxShadow: '0 24px 48px rgba(0, 0, 0, 0.4)',
                   border: '1px solid rgba(255, 152, 0, 0.25)',
@@ -129,7 +130,7 @@ const Hero = () => {
                         position: 'absolute',
                         width: { xs: 32, md: 48 },
                         height: { xs: 32, md: 48 },
-                        borderRadius: 2,
+                        borderRadius: 0,
                         ...positions[corner],
                       }}
                     />
@@ -267,6 +268,46 @@ const Hero = () => {
               <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                 Browse through our comprehensive database of missing persons
                 using advanced search filters.
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card
+            sx={{
+              height: '100%',
+              textAlign: 'center',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 16px 32px rgba(255, 152, 0, 0.18)',
+              },
+              cursor: 'pointer',
+              backgroundColor: 'rgba(26, 26, 26, 0.6)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              color: 'var(--fx-text-primary)',
+              borderRadius: 3,
+            }}
+            onClick={() => navigate('/profile')}
+          >
+            <CardContent sx={{ p: 4 }}>
+              <IconButton
+                sx={{
+                  backgroundColor: 'rgba(255, 152, 0, 0.15)',
+                  color: 'var(--fx-accent)',
+                  mb: 2,
+                  width: 64,
+                  height: 64,
+                }}
+              >
+                <ManageAccountsIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="h6" component="h3" gutterBottom>
+                Manage Your Profile
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
+                Maintain contact details, alert preferences, and collaboration roles across every case.
               </Typography>
             </CardContent>
           </Card>
