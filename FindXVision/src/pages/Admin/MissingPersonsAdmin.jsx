@@ -25,19 +25,23 @@ const MissingPersonsAdmin = () => {
   const [alert, setAlert] = useState(null);
 
   const heroStyles = {
-    background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(255, 152, 0, 0.06))',
-    border: '1px solid rgba(255, 152, 0, 0.2)',
+    background: 'rgba(20, 20, 20, 0.55)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    border: '1px solid rgba(255, 255, 255, 0.16)',
     borderRadius: 3,
-    boxShadow: '0 40px 90px rgba(0, 0, 0, 0.45)',
+    boxShadow: '0 36px 90px rgba(0, 0, 0, 0.42)',
     px: { xs: 3.5, md: 6 },
     py: { xs: 4, md: 5 },
   };
 
   const surfaceStyles = {
-    background: 'rgba(10, 10, 10, 0.78)',
-    border: '1px solid rgba(255, 152, 0, 0.12)',
+    background: 'rgba(18, 18, 18, 0.6)',
+    backdropFilter: 'blur(22px)',
+    WebkitBackdropFilter: 'blur(22px)',
+    border: '1px solid rgba(255, 255, 255, 0.14)',
     borderRadius: 3,
-    boxShadow: '0 30px 70px rgba(0, 0, 0, 0.45)',
+    boxShadow: '0 32px 88px rgba(0, 0, 0, 0.4)',
     overflow: 'hidden',
   };
 
@@ -177,7 +181,7 @@ const MissingPersonsAdmin = () => {
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 5, md: 7 }, px: { xs: 2.5, md: 4 } }}>
       <Stack spacing={4}>
-        <Box sx={heroStyles}>
+        <Box className="fx-glass-panel" sx={heroStyles}>
           <Stack
             direction={{ xs: 'column', md: 'row' }}
             spacing={4}
@@ -225,13 +229,12 @@ const MissingPersonsAdmin = () => {
             {summaryMetrics.map((metric) => (
               <Box
                 key={metric.label}
+                className="fx-glass-card"
                 sx={{
                   flex: 1,
                   minWidth: { xs: '100%', md: 220 },
                   p: 3,
-                  borderRadius: 2,
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                  borderRadius: 3,
                 }}
               >
                 <Typography variant="overline" sx={{ color: 'var(--fx-accent)', letterSpacing: '0.22em' }}>
@@ -256,7 +259,7 @@ const MissingPersonsAdmin = () => {
               <Tab key={tab.value} value={tab.value} label={tab.label} />
             ))}
           </Tabs>
-        </Box>
+  </Box>
 
       {alert && (
         <Alert
@@ -265,8 +268,10 @@ const MissingPersonsAdmin = () => {
           sx={{
             mt: 3,
             borderRadius: 2,
-            border: '1px solid rgba(255, 152, 0, 0.25)',
-            backgroundColor: 'rgba(255, 152, 0, 0.08)',
+            border: '1px solid rgba(255, 152, 0, 0.32)',
+            backgroundColor: 'rgba(255, 152, 0, 0.14)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
             color: 'var(--fx-text-primary)',
           }}
         >
@@ -280,6 +285,7 @@ const MissingPersonsAdmin = () => {
         </Box>
       ) : reports.length === 0 ? (
         <Box
+          className="fx-glass-card"
           display="flex"
           flexDirection="column"
           alignItems="center"
@@ -288,9 +294,7 @@ const MissingPersonsAdmin = () => {
           textAlign="center"
           sx={{
             color: 'var(--fx-text-secondary)',
-            border: '1px dashed rgba(255, 152, 0, 0.25)',
             borderRadius: 3,
-            backgroundColor: 'rgba(12, 12, 12, 0.6)',
             py: 7,
             px: { xs: 3, md: 6 },
           }}
@@ -301,7 +305,7 @@ const MissingPersonsAdmin = () => {
       ) : (
   <Stack spacing={4}>
           {reports.map((person) => (
-            <Card key={person._id} sx={surfaceStyles}>
+            <Card key={person._id} className="fx-glass-card" sx={surfaceStyles}>
               <Stack direction={{ xs: 'column', sm: 'row' }}>
                 <CardMedia
                   component="div"

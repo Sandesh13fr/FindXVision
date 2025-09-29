@@ -72,12 +72,12 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--fx-background)] text-[var(--fx-text-primary)]">
+    <div className="min-h-screen text-[var(--fx-text-primary)]">
       <Hero />
 
       <section
         id="features"
-        className="py-20 px-6 bg-[var(--fx-background)] border-t border-b border-white/10"
+        className="py-20 px-6 fx-seamless-section"
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -94,7 +94,7 @@ const LandingPage = () => {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="rounded-3xl border border-white/12 bg-[var(--fx-surface)] shadow-[0_24px_64px_rgba(0,0,0,0.35)] hover:shadow-[0_28px_72px_rgba(255,152,0,0.15)] transition-shadow duration-300 p-8"
+                className="rounded-3xl fx-glass-card shadow-[0_24px_64px_rgba(0,0,0,0.35)] hover:shadow-[0_28px_72px_rgba(255,152,0,0.15)] transition-all duration-300 p-8"
               >
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[rgba(255,152,0,0.15)] text-[var(--fx-accent)] mb-6">
                   {feature.icon}
@@ -109,7 +109,7 @@ const LandingPage = () => {
 
       <section
         id="how-it-works"
-        className="py-20 px-6 bg-gradient-to-br from-[#1a1a1a] via-[#181818] to-[#121212] text-white border-b border-white/10"
+        className="py-20 px-6 fx-seamless-section"
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -126,7 +126,7 @@ const LandingPage = () => {
             {steps.map((step, index) => (
               <div
                 key={step.title}
-                className="text-center bg-white/5 rounded-3xl px-6 py-10 backdrop-blur border border-white/10"
+                className="text-center fx-glass-card rounded-3xl px-6 py-10"
               >
                 <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-[var(--fx-accent)] text-[#1d1d1d] text-2xl font-bold shadow-[0_0_24px_rgba(255,152,0,0.4)]">
                   {index + 1}
@@ -139,7 +139,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-[var(--fx-background)]">
+      <section className="py-20 px-6 fx-seamless-section">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-[0.3em] text-[var(--fx-accent)] font-semibold mb-3">
@@ -151,7 +151,7 @@ const LandingPage = () => {
             </p>
           </div>
 
-          <div className="bg-[var(--fx-surface)] rounded-3xl shadow-[0_28px_72px_rgba(0,0,0,0.35)] border border-white/12 px-6 md:px-10 py-10">
+          <div className="fx-glass-card rounded-3xl shadow-[0_28px_72px_rgba(0,0,0,0.35)] px-6 md:px-10 py-10">
             <div className="space-y-6">
               {comparisons.map((item) => (
                 <div
@@ -170,9 +170,9 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-[var(--fx-background)]" id="cta">
+      <section className="py-24 px-6 fx-seamless-section" id="cta">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="rounded-3xl border border-white/15 shadow-[0_32px_96px_rgba(0,0,0,0.45)] px-8 py-16 bg-gradient-to-br from-[#1c1c1c] via-[#161616] to-[#121212] relative overflow-hidden">
+          <div className="rounded-3xl fx-glass-card shadow-[0_32px_96px_rgba(0,0,0,0.45)] px-8 py-16 relative overflow-hidden">
             <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,var(--fx-accent)_0%,transparent_55%)] pointer-events-none" />
             <div className="relative flex justify-center mb-6 text-[var(--fx-accent)]">
               <Star className="w-16 h-16" />
@@ -199,7 +199,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <footer className="bg-[#181818] py-12 px-6 text-[var(--fx-text-secondary)] border-t border-white/10">
+      <footer className="py-12 px-6 text-[var(--fx-text-secondary)] fx-seamless-section">
         <div className="max-w-6xl mx-auto text-center">
           <div className="text-3xl font-bold text-[var(--fx-text-primary)] mb-6">FindXVision</div>
           <p className="text-sm">© 2025 FindXVision. Reuniting families with technology and community.</p>

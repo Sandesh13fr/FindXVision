@@ -15,24 +15,25 @@ const StaticMapPlaceholder = ({ height = '400px', markers = [] }) => {
   // If API key is available, show a message about dynamic maps
   if (googleMapsApiKey) {
     return (
-      <Card>
-        <CardContent>
+      <Card className="fx-glass-card" sx={{ borderRadius: 4 }}>
+        <CardContent sx={{ p: 4 }}>
           <Box sx={{ 
             height, 
             display: 'flex', 
             flexDirection: 'column',
             alignItems: 'center', 
             justifyContent: 'center',
-            bgcolor: 'grey.100',
-            borderRadius: 1,
-            border: '1px dashed',
-            borderColor: 'grey.300'
+            background: 'rgba(255, 255, 255, 0.04)',
+            borderRadius: 3,
+            border: '1px dashed rgba(255, 255, 255, 0.18)',
+            color: 'var(--fx-text-primary)',
+            textAlign: 'center'
           }}>
             <MapIcon sx={{ fontSize: 48, color: 'grey.500', mb: 2 }} />
-            <Typography variant="h6" color="text.secondary" align="center">
+            <Typography variant="h6" sx={{ color: 'var(--fx-text-primary)' }}>
               Google Maps Integration Active
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+            <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)', mt: 1 }}>
               Map component would be rendered here with API key: {googleMapsApiKey.substring(0, 10)}...
             </Typography>
           </Box>
@@ -43,9 +44,18 @@ const StaticMapPlaceholder = ({ height = '400px', markers = [] }) => {
   
   // If no API key, show a static placeholder with instructions
   return (
-    <Card>
-      <CardContent>
-        <Alert severity="info" sx={{ mb: 2 }}>
+    <Card className="fx-glass-card" sx={{ borderRadius: 4 }}>
+      <CardContent sx={{ p: 4 }}>
+        <Alert
+          severity="info"
+          sx={{
+            mb: 2,
+            borderRadius: 2,
+            backgroundColor: 'rgba(33, 150, 243, 0.12)',
+            color: 'var(--fx-text-primary)',
+            border: '1px solid rgba(33, 150, 243, 0.25)'
+          }}
+        >
           Google Maps API key not configured.{' '}
           <Link 
             href="https://developers.google.com/maps/documentation/javascript/get-api-key" 
@@ -63,16 +73,17 @@ const StaticMapPlaceholder = ({ height = '400px', markers = [] }) => {
           flexDirection: 'column',
           alignItems: 'center', 
           justifyContent: 'center',
-          bgcolor: 'grey.100',
-          borderRadius: 1,
-          border: '1px dashed',
-          borderColor: 'grey.300'
+          background: 'rgba(255, 255, 255, 0.04)',
+          borderRadius: 3,
+          border: '1px dashed rgba(255, 255, 255, 0.18)',
+          color: 'var(--fx-text-primary)',
+          textAlign: 'center'
         }}>
-          <MapIcon sx={{ fontSize: 48, color: 'grey.500', mb: 2 }} />
-          <Typography variant="h6" color="text.secondary" align="center">
+          <MapIcon sx={{ fontSize: 48, color: 'rgba(255, 255, 255, 0.65)', mb: 2 }} />
+          <Typography variant="h6" sx={{ color: 'var(--fx-text-primary)' }}>
             Map Placeholder
           </Typography>
-          <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+          <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)', mt: 1 }}>
             Interactive map would appear here with a valid Google Maps API key
           </Typography>
           

@@ -175,9 +175,9 @@ const MapComponent = ({
   // If no API key, show static placeholder
   if (!googleMapsApiKey) {
     return (
-      <Card>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
+      <Card className="fx-glass-card" sx={{ borderRadius: 4 }}>
+        <CardContent sx={{ p: 4 }}>
+          <Typography variant="h6" gutterBottom sx={{ color: 'var(--fx-text-primary)' }}>
             Location Selection
           </Typography>
           
@@ -220,7 +220,7 @@ const MapComponent = ({
               
               {selectedLocation && (
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                     Selected: {selectedLocation?.address || (selectedLocation?.lat && `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`)}
                   </Typography>
                   <PrimaryButton size="small" onClick={clearSelection}>
@@ -232,7 +232,16 @@ const MapComponent = ({
           )}
 
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert
+              severity="error"
+              sx={{
+                mb: 2,
+                borderRadius: 2,
+                backgroundColor: 'rgba(244, 67, 54, 0.12)',
+                border: '1px solid rgba(244, 67, 54, 0.28)',
+                color: 'var(--fx-text-primary)'
+              }}
+            >
               {error}
             </Alert>
           )}
@@ -244,9 +253,9 @@ const MapComponent = ({
   }
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
+    <Card className="fx-glass-card" sx={{ borderRadius: 4 }}>
+      <CardContent sx={{ p: 4 }}>
+        <Typography variant="h6" gutterBottom sx={{ color: 'var(--fx-text-primary)' }}>
           Location Selection
         </Typography>
         
@@ -289,7 +298,7 @@ const MapComponent = ({
             
             {selectedLocation && (
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: 'var(--fx-text-secondary)' }}>
                   Selected: {selectedLocation?.address || (selectedLocation?.lat && `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`)}
                 </Typography>
                 <PrimaryButton size="small" onClick={clearSelection}>
@@ -301,7 +310,16 @@ const MapComponent = ({
         )}
 
         {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
+          <Alert
+            severity="error"
+            sx={{
+              mb: 2,
+              borderRadius: 2,
+              backgroundColor: 'rgba(244, 67, 54, 0.12)',
+              border: '1px solid rgba(244, 67, 54, 0.28)',
+              color: 'var(--fx-text-primary)'
+            }}
+          >
             {error}
           </Alert>
         )}
@@ -359,7 +377,16 @@ const MapComponent = ({
         </Box>
         
         <Box sx={{ mt: 1 }}>
-          <Alert severity="info" sx={{ py: 0 }}>
+          <Alert
+            severity="info"
+            sx={{
+              py: 0,
+              borderRadius: 2,
+              backgroundColor: 'rgba(33, 150, 243, 0.12)',
+              border: '1px solid rgba(33, 150, 243, 0.28)',
+              color: 'var(--fx-text-primary)'
+            }}
+          >
             Google Maps API Key: {googleMapsApiKey.substring(0, 10)}...{' '}
             <Link 
               href="https://developers.google.com/maps/documentation/javascript/error-messages#billing-not-enabled-map-error" 

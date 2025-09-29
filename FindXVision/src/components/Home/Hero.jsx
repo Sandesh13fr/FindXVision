@@ -25,12 +25,10 @@ const Hero = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(33, 33, 33, 0.96) 0%, rgba(26, 26, 26, 0.98) 100%)',
           color: 'var(--fx-text-primary)',
           py: { xs: 8, md: 12 },
           position: 'relative',
           overflow: 'hidden',
-          borderBottom: '1px solid rgba(255, 152, 0, 0.18)',
         }}
       >
         <Container maxWidth="lg">
@@ -201,9 +199,12 @@ const Hero = () => {
                 boxShadow: '0 16px 32px rgba(255, 152, 0, 0.18)',
               },
               cursor: 'pointer',
-              backgroundColor: 'var(--fx-surface)',
-              border: '1px solid rgba(255, 152, 0, 0.18)',
+              backgroundColor: 'rgba(26, 26, 26, 0.6)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               color: 'var(--fx-text-primary)',
+              borderRadius: 3,
             }}
             onClick={handleReportMissing}
           >
@@ -239,9 +240,12 @@ const Hero = () => {
                 boxShadow: '0 16px 32px rgba(255, 152, 0, 0.18)',
               },
               cursor: 'pointer',
-              backgroundColor: 'var(--fx-surface)',
-              border: '1px solid rgba(255, 152, 0, 0.18)',
+              backgroundColor: 'rgba(26, 26, 26, 0.6)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               color: 'var(--fx-text-primary)',
+              borderRadius: 3,
             }}
             onClick={handleSearchMissing}
           >
@@ -271,7 +275,12 @@ const Hero = () => {
       </Container>
 
       {/* Contact Information */}
-      <Box sx={{ bgcolor: 'rgba(255, 152, 0, 0.08)', py: 6 }}>
+      <Box sx={{ 
+        background: 'rgba(255, 152, 0, 0.0)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        py: 6 
+      }}>
         <Container maxWidth="lg">
           <Typography
             variant="h5"
@@ -293,7 +302,7 @@ const Hero = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <PhoneIcon sx={{ color: 'var(--fx-accent)' }} />
               <Typography variant="body1" sx={{ color: 'var(--fx-text-primary)' }}>
-                Emergency: 911 | Support: (555) 123-4567
+                Emergency: +91 | Support: 9896644615
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

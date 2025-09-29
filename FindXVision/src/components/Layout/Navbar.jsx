@@ -75,9 +75,11 @@ const Navbar = () => {
       position="static"
       elevation={4}
       sx={{
-        backgroundColor: 'rgba(24, 24, 24, 0.92)',
-        borderBottom: '1px solid rgba(255, 152, 0, 0.25)',
-        backdropFilter: 'blur(12px)',
+        backgroundColor: 'rgba(26, 26, 26, 0.8)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderTop: 'none',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
       }}
     >
       <Toolbar>

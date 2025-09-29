@@ -209,12 +209,9 @@ const MissingPersonsList = () => {
 
   return (
     <Box
+      className="fx-glass-panel"
       sx={{
         p: { xs: 3, md: 4 },
-        backgroundColor: 'var(--fx-surface)',
-        borderRadius: 4,
-        border: '1px solid rgba(255, 152, 0, 0.18)',
-        boxShadow: '0 32px 96px rgba(0, 0, 0, 0.38)',
         color: 'var(--fx-text-primary)',
       }}
     >
@@ -240,7 +237,19 @@ const MissingPersonsList = () => {
       </Box>
 
       {alert && (
-        <Alert severity={alert.type} sx={{ mb: 3 }} onClose={() => setAlert(null)}>
+        <Alert
+          severity={alert.type}
+          sx={{
+            mb: 3,
+            borderRadius: 2,
+            border: '1px solid rgba(255, 152, 0, 0.28)',
+            backgroundColor: 'rgba(255, 152, 0, 0.12)',
+            color: 'var(--fx-text-primary)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)'
+          }}
+          onClose={() => setAlert(null)}
+        >
           {alert.message}
         </Alert>
       )}
@@ -302,12 +311,10 @@ const MissingPersonsList = () => {
           return (
             <Card
               key={person._id || person.adhaarNumber}
+              className="fx-glass-card"
               sx={{
                 height: '100%',
-                backgroundColor: 'rgba(27, 27, 27, 0.95)',
                 borderRadius: 3,
-                border: '1px solid rgba(255, 152, 0, 0.18)',
-                boxShadow: '0 24px 64px rgba(0, 0, 0, 0.38)',
                 overflow: 'hidden',
                 color: 'var(--fx-text-primary)',
               }}
@@ -319,7 +326,9 @@ const MissingPersonsList = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
               }}
             >
               {getImageSrc(person) ? (
@@ -455,12 +464,38 @@ const MissingPersonsList = () => {
         </Box>
       )}
 
-      <Dialog open={sightingDialogOpen} onClose={closeSightingDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>
+      <Dialog
+        open={sightingDialogOpen}
+        onClose={closeSightingDialog}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          className: 'fx-glass-panel',
+          sx: { backgroundColor: 'rgba(18, 18, 18, 0.85)', borderRadius: 3 },
+        }}
+        BackdropProps={{
+          sx: { backdropFilter: 'blur(6px)', backgroundColor: 'rgba(0, 0, 0, 0.45)' },
+        }}
+      >
+        <DialogTitle sx={{
+          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+          pb: 2,
+          textTransform: 'uppercase',
+          letterSpacing: '0.2em',
+          color: 'var(--fx-accent)'
+        }}>
           Report a sighting
           {selectedPerson ? ` — ${selectedPerson.name}` : ''}
         </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent
+          dividers
+          sx={{
+            borderColor: 'rgba(255, 255, 255, 0.08)',
+            background: 'rgba(20, 20, 20, 0.55)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)'
+          }}
+        >
           <Stack spacing={2}>
             {formError && (
               <Alert severity="error" onClose={() => setFormError(null)}>

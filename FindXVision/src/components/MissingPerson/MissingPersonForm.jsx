@@ -35,10 +35,12 @@ const MissingPersonForm = () => {
       textTransform: 'uppercase',
     },
     '& .MuiOutlinedInput-root': {
-      backgroundColor: 'rgba(12, 12, 12, 0.65)',
+      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+      backdropFilter: 'blur(18px)',
+      WebkitBackdropFilter: 'blur(18px)',
       borderRadius: 1.5,
       '& fieldset': {
-        borderColor: 'rgba(255, 255, 255, 0.14)',
+        borderColor: 'rgba(255, 255, 255, 0.16)',
       },
       '&:hover fieldset': {
         borderColor: 'var(--fx-accent)',
@@ -51,15 +53,17 @@ const MissingPersonForm = () => {
       },
     },
     '& .MuiFormHelperText-root': {
-      color: '#ff6f61',
+      color: '#ffb74d',
     },
   };
 
   const sectionStyles = {
-    background: 'linear-gradient(135deg, rgba(30, 30, 30, 0.92), rgba(255, 152, 0, 0.08))',
-    border: '1px solid rgba(255, 152, 0, 0.14)',
+    background: 'rgba(20, 20, 20, 0.58)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.14)',
     borderRadius: 3,
-    boxShadow: '0 40px 90px rgba(0, 0, 0, 0.45)',
+    boxShadow: '0 28px 80px rgba(0, 0, 0, 0.38)',
     p: { xs: 3.5, md: 5 },
     position: 'relative',
     overflow: 'hidden',
@@ -212,8 +216,10 @@ const MissingPersonForm = () => {
           sx={{
             mt: 4,
             borderRadius: 2,
-            border: '1px solid rgba(255, 152, 0, 0.25)',
-            backgroundColor: 'rgba(255, 152, 0, 0.08)',
+            border: '1px solid rgba(255, 152, 0, 0.35)',
+            backgroundColor: 'rgba(255, 152, 0, 0.15)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
             color: 'var(--fx-text-primary)',
           }}
         >
