@@ -53,7 +53,7 @@ const Hero = () => {
                   color: 'var(--fx-text-primary)',
                 }}
               >
-              .
+              A Vision for the Missing, A Path to Home.
               </Typography>
               <Typography
                 variant="h5"
