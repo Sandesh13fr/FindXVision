@@ -279,9 +279,18 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <footer className="py-12 px-6 text-[var(--fx-text-secondary)] fx-seamless-section">
+      <footer className="py-10 px-6 text-[var(--fx-text-secondary)] fx-seamless-section ">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="text-3xl font-bold text-[var(--fx-text-primary)] mb-6">FindXVision</div>
+          
+          <div className="text-center flex flex-row items-center justify-center">
+            <img
+              src="/logo.png"
+              alt="FindXVision Logo"
+              className=" w-30 h-auto rounded-lg shadow-md "
+            />
+            <div className="text-3xl font-bold text-[var(--fx-text-primary)] ">FindXVision</div>
+          </div>
+          
           <p className="text-sm">© 2025 FindXVision. Reuniting families with technology and community.</p>
         </div>
       </footer>

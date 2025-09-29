@@ -96,8 +96,8 @@ const Navbar = () => {
       sx={{
         top: 0,
         backgroundColor: scrolled 
-          ? 'rgba(10, 10, 15, 0.85)' 
-          : 'rgba(15, 15, 18, 0.65)',
+          ? 'rgba(10, 10, 15, 0.25)' 
+          : 'rgba(15, 15, 18, 0.25)',
         borderBottom: scrolled 
           ? '1px solid rgba(255, 152, 0, 0.15)' 
           : '1px solid rgba(255, 255, 255, 0.08)',
@@ -164,28 +164,38 @@ const Navbar = () => {
               }}
             />
             <Box
-              sx={{
-                width: 40,
-                height: 40,
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #ff9800 0%, #ff6f00 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 8px 24px rgba(255, 152, 0, 0.3)',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.3), transparent)',
-                  opacity: 0.8,
-                },
-              }}
-            >
-              <Person sx={{ color: '#000', fontSize: 24, fontWeight: 'bold' }} />
-            </Box>
+                sx={{
+                  width: 90,
+                  height: 50,
+                  // borderRadius: '12px',
+                  // background: 'linear-gradient(135deg, #ff9800 0%, #ff6f00 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // boxShadow: '0 8px 24px rgba(255, 152, 0, 0.3)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    // background: 'linear-gradient(135deg, rgba(255,255,255,0.3), transparent)',
+                    opacity: 0.8,
+                  },
+                }}
+              >
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    backgroundColor: 'none',
+                    // borderRadius: '12px',
+                  }}
+                />
+              </Box>
             <Typography
               variant="h6"
               component="div"
@@ -200,7 +210,7 @@ const Navbar = () => {
                 backgroundClip: 'text',
               }}
             >
-              FindXVision
+              FindxVision
             </Typography>
           </Box>
 

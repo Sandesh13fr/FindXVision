@@ -53,7 +53,7 @@ const Hero = () => {
                   color: 'var(--fx-text-primary)',
                 }}
               >
-                Find Missing People
+              .
               </Typography>
               <Typography
                 variant="h5"
