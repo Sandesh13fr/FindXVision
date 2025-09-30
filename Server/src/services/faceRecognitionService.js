@@ -4,6 +4,7 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { fileURLToPath } from 'url';
 import { FaceDetection } from '../models/FaceDetection.js';
+import { sendSMS, twilioConfigured } from './smsService.js';
 
 const FACE_SERVICE_URL = process.env.FACE_SERVICE_URL || 'http://localhost:5001';
 
@@ -62,7 +63,24 @@ export const faceRecognitionService = {
           location: options.location,
           metadata: options.metadata,
         }));
-        await FaceDetection.insertMany(payload);
+        const docs = await FaceDetection.insertMany(payload);
+        // Send SMS alerts (best-effort)
+        if (twilioConfigured()) {
+          const to = options?.notifyTo || process.env.ALERT_SMS_TO || null;
+          if (to) {
+            for (let i = 0; i < matches.length; i++) {
+              const m = matches[i];
+              const d = docs?.[i];
+              if (!m || !d) continue;
+              const when = d.captureTime?.toISOString?.() || new Date().toISOString();
+              const loc = d.location && d.location.lat && d.location.lon
+                ? ` https://maps.google.com/?q=${d.location.lat},${d.location.lon}`
+                : '';
+              const body = `FindXVision: Match found for ${m.name} (${m.confidence}% ). Time: ${when}.${loc}`;
+              try { await sendSMS(to, body) } catch (_) {}
+            }
+          }
+        }
       }
 
       return {
@@ -102,7 +120,23 @@ export const faceRecognitionService = {
           location: options.location,
           metadata: { ...options.metadata, frame: match.frame },
         }));
-        await FaceDetection.insertMany(payload);
+        const docs = await FaceDetection.insertMany(payload);
+        if (twilioConfigured()) {
+          const to = options?.notifyTo || process.env.ALERT_SMS_TO || null;
+          if (to) {
+            for (let i = 0; i < matches.length; i++) {
+              const m = matches[i];
+              const d = docs?.[i];
+              if (!m || !d) continue;
+              const when = d.captureTime?.toISOString?.() || new Date().toISOString();
+              const loc = d.location && d.location.lat && d.location.lon
+                ? ` https://maps.google.com/?q=${d.location.lat},${d.location.lon}`
+                : '';
+              const body = `FindXVision: Match found for ${m.name} (${m.confidence}% ). Time: ${when}.${loc}`;
+              try { await sendSMS(to, body) } catch (_) {}
+            }
+          }
+        }
       }
 
       return {
@@ -127,7 +161,7 @@ export const faceRecognitionService = {
 
     if (data?.matched && data?.face_data) {
       const match = data.face_data;
-      await FaceDetection.create({
+      const doc = await FaceDetection.create({
         personName: match.name,
         confidence: match.confidence,
         source: 'live',
@@ -137,6 +171,17 @@ export const faceRecognitionService = {
         location,
         metadata: payload.metadata,
       });
+      if (twilioConfigured()) {
+        const to = payload?.notifyTo || process.env.ALERT_SMS_TO || null;
+        if (to) {
+          const when = doc.captureTime?.toISOString?.() || new Date().toISOString();
+          const loc = doc.location && doc.location.lat && doc.location.lon
+            ? ` https://maps.google.com/?q=${doc.location.lat},${doc.location.lon}`
+            : '';
+          const body = `FindXVision: Live match for ${match.name} (${match.confidence}% ). Time: ${when}.${loc}`;
+          try { await sendSMS(to, body) } catch (_) {}
+        }
+      }
     }
 
     return data;

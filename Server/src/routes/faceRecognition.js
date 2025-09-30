@@ -37,7 +37,8 @@ router.post('/image', authenticateToken, requireRole(['ADMINISTRATOR']), upload.
     const result = await faceRecognitionService.processImage(req.file, {
       captureTime,
       location: (lat && lon) ? { lat: Number(lat), lon: Number(lon), accuracy: accuracy ? Number(accuracy) : undefined } : undefined,
-      metadata: { uploadedBy: req.user._id }
+      metadata: { uploadedBy: req.user._id },
+      notifyTo: req.user?.phoneNumber,
     });
 
     res.json(result);
@@ -55,6 +56,7 @@ router.post('/video', authenticateToken, requireRole(['ADMINISTRATOR']), upload.
 
     const result = await faceRecognitionService.processVideo(req.file, {
       metadata: { uploadedBy: req.user._id },
+      notifyTo: req.user?.phoneNumber,
     });
 
     res.json(result);
@@ -78,6 +80,7 @@ router.post('/frame', authenticateToken, requireRole(['ADMINISTRATOR']), async (
       captureTime: timestamp,
       location: (lat && lon) ? { lat: Number(lat), lon: Number(lon), accuracy: accuracy ? Number(accuracy) : undefined } : undefined,
       metadata: { capturedBy: req.user._id },
+      notifyTo: req.user?.phoneNumber,
     });
 
     res.json(result);

@@ -10,8 +10,16 @@ import { fileURLToPath } from 'url';
 import connectDB from './database/connection.js';
 import mongoose from 'mongoose';
 
-// Load environment variables
-dotenv.config();
+// Load environment variables from the Server/.env explicitly (robust to CWD)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// Safe startup diagnostics for Twilio env (no secrets output)
+console.log('Twilio env presence:', {
+  hasSid: Boolean(process.env.TWILIO_ACCOUNT_SID),
+  hasToken: Boolean(process.env.TWILIO_AUTH_TOKEN),
+  hasSender: Boolean(process.env.TWILIO_SMS_FROM || process.env.TWILIO_MESSAGING_SERVICE_SID),
+});
 
 // Basic middleware and error handling
 import { globalErrorHandler, notFoundHandler } from './middleware/errorMiddleware.js';
@@ -22,14 +30,13 @@ import userRoutes from './routes/users.js';
 import caseRoutes from './routes/cases.js';
 import missingPersonRoutes from './routes/missingPersons.js';
 import faceRecognitionRoutes from './routes/faceRecognition.js';
+import notificationsRouter from './routes/notifications.js';
 
 // Middleware imports
 import { requestLogger } from './middleware/requestLogger.js';
 import { authenticateToken } from './middleware/auth.js';
 
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Get __dirname equivalent in ES modules (already defined above)
 
 // Initialize MongoDB connection
 connectDB();
@@ -123,6 +130,7 @@ app.use('/api/users', authenticateToken, userRoutes);
 app.use('/api/cases', authenticateToken, caseRoutes);
 app.use('/api/missingpeople', missingPersonRoutes);
 app.use('/api/face', faceRecognitionRoutes);
+app.use('/api/notifications', notificationsRouter);
 
 // 404 handler
 app.use(notFoundHandler);
