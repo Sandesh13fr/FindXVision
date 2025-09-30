@@ -13,6 +13,7 @@ import TailwindTestPage from './pages/Auth/TailwindTestPage';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import MissingPersonsAdmin from './pages/Admin/MissingPersonsAdmin';
 import ProfilePage from './pages/Profile/ProfilePage';
+import FaceRecognitionAdmin from './pages/Admin/FaceRecognitionAdmin';
 import { useDispatch } from 'react-redux';
 import { checkAuthStatus } from './store/slices/authSlice';
 
@@ -56,6 +57,14 @@ function App() {
           element={(
             <ProtectedRoute requiredRole="ADMIN">
               <MissingPersonsAdmin />
+            </ProtectedRoute>
+          )}
+        />
+        <Route
+          path="/admin/face-recognition"
+          element={(
+            <ProtectedRoute requiredRole="ADMIN">
+              <FaceRecognitionAdmin />
             </ProtectedRoute>
           )}
         />

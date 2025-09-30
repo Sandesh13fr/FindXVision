@@ -21,6 +21,7 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import caseRoutes from './routes/cases.js';
 import missingPersonRoutes from './routes/missingPersons.js';
+import faceRecognitionRoutes from './routes/faceRecognition.js';
 
 // Middleware imports
 import { requestLogger } from './middleware/requestLogger.js';
@@ -37,6 +38,17 @@ connectDB();
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const alertsDir = path.join(__dirname, '../uploads/alerts');
+if (!fs.existsSync(alertsDir)) {
+  fs.mkdirSync(alertsDir, { recursive: true });
+}
+
+// Ensure local known faces directory exists (used by face service if pointed via KNOWN_FACES_DIR)
+const knownFacesDir = path.join(__dirname, '../uploads/known_faces');
+if (!fs.existsSync(knownFacesDir)) {
+  fs.mkdirSync(knownFacesDir, { recursive: true });
 }
 
 // Initialize Express app
@@ -92,6 +104,8 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/alerts', express.static(alertsDir));
+
 // Basic health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
@@ -108,6 +122,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', authenticateToken, userRoutes);
 app.use('/api/cases', authenticateToken, caseRoutes);
 app.use('/api/missingpeople', missingPersonRoutes);
+app.use('/api/face', faceRecognitionRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

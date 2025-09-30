@@ -10,6 +10,7 @@ import {
   AccountCircle,
   KeyboardArrowDown,
   Shield,
+  FaceRetouchingNatural,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -73,6 +74,11 @@ const Navbar = () => {
         label: 'Admin Reports',
         path: '/admin/missing-persons',
         icon: <AdminPanelSettings />,
+      },
+      {
+        label: 'Face Recognition',
+        path: '/admin/face-recognition',
+        icon: <FaceRetouchingNatural />,
       },
     ];
   }, [isAdmin]);

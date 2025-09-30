@@ -126,4 +126,20 @@ export const adminAPI = {
   markMissingPersonFound: (id) => apiClient.patch(`/missingpeople/${id}/mark-found`),
 };
 
+export const faceAPI = {
+  getStatus: () => apiClient.get('/face/status'),
+  getDetections: (params) => apiClient.get('/face/detections', { params }),
+  uploadImage: (formData) => apiClient.post('/face/image', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 120000,
+  }),
+  uploadVideo: (formData) => apiClient.post('/face/video', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 240000,
+  }),
+  processFrame: (payload) => apiClient.post('/face/frame', payload, {
+    timeout: 20000,
+  }),
+};
+
 export default apiClient;
